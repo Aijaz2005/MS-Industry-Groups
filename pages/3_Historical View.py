@@ -9,6 +9,9 @@ st.set_page_config(layout="wide")
 # Step 1: Create a Streamlit app
 st.title("Historical View of Industry Groups")
 
+# Create a grouped bar chart using Bokeh
+st.subheader("Here you can upload multiple CSV files.")
+
 # Step 2: File uploader
 uploaded_files = st.file_uploader("Upload CSV files", accept_multiple_files=True, type=["csv"])
 
