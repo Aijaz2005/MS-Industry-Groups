@@ -11,7 +11,7 @@ from bokeh.models import Legend
 st.set_page_config(layout="wide")
 
 # Title
-st.title("Industry Group Dashboard")
+st.title("Current vs Last Week Ranking")
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
