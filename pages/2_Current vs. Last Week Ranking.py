@@ -44,7 +44,7 @@ if uploaded_file is not None:
     filtered_df = filtered_df[(filtered_df['IndustryGroupRankCurrent'] < filtered_df['IndustryGroupRankLastWeek'])]
 
     # Create a grouped bar chart using Bokeh
-    st.subheader("Comparison between Current Rank & Last Week Rank.")
+    st.subheader("Display Industry Groups which Current Rank is less than Last Week Rank.")
 
     # Add a checkbox to turn on/off text labels
     show_labels = st.checkbox("Show Text Labels", value=True)
