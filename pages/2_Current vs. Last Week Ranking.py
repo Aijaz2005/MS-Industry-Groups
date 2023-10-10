@@ -13,6 +13,9 @@ st.set_page_config(layout="wide")
 # Title
 st.title("Current vs Last Week Ranking")
 
+# Create a grouped bar chart using Bokeh
+st.subheader("Only ONE CSV file can be uploaded at a time.")
+
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 
