@@ -87,6 +87,10 @@ if industry_data is not None:
 else:
     filtered_data = None
 
+# Calculate RankDecrease
+filtered_data['RankDecrease'] = filtered_data['IndustryGroupRankCurrent'] - filtered_data[
+        'IndustryGroupRankLastWeek']
+
 # Sort the DataFrame by the "Date" column in descending order
 if filtered_data is not None:
     filtered_data = filtered_data.sort_values(by="Date", ascending=False)
