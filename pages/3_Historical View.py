@@ -3,7 +3,7 @@ import os
 import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 
-# configuration of the page
+# Configuration of the page
 st.set_page_config(layout="wide")
 
 # Step 1: Create a Streamlit app
@@ -58,7 +58,7 @@ st.sidebar.header("Filter Options")
 
 # Step 3: Filter data based on market cap
 if industry_data is not None:
-    # Allow user to choose market cap range
+    # Allow user to choose the market cap range
     min_market_cap = st.sidebar.number_input("Minimum Market Cap", float(industry_data['MarketCapital'].min()),
                                              float(industry_data['MarketCapital'].max()),
                                              float(industry_data['MarketCapital'].min()))
@@ -70,8 +70,7 @@ if industry_data is not None:
                                   (industry_data['MarketCapital'] <= max_market_cap)]
 
 # Step 4: Radio button for choosing display option
-display_option = st.sidebar.radio("Display Option", ["Use Multiselect", "Show All Data"],
-                                  index=0)  # Set "Use Multiselect" as default
+display_option = st.sidebar.radio("Display Option", ["Use Multiselect", "Show All Data"], index=0)
 
 # Warning message for "Show All Data" option
 if display_option == "Show All Data":
@@ -87,19 +86,21 @@ if industry_data is not None:
 else:
     filtered_data = None
 
-# Calculate RankDecrease
-filtered_data['RankDecrease'] = filtered_data['IndustryGroupRankCurrent'] - filtered_data[
+# Calculate the 'RankDecrease' column
+if filtered_data is not None:
+    filtered_data['IndustryGroupRankCurrent'] = pd.to_numeric(filtered_data['IndustryGroupRankCurrent'],
+                                                              errors='coerce')
+    filtered_data['IndustryGroupRankLastWeek'] = pd.to_numeric(filtered_data['IndustryGroupRankLastWeek'],
+                                                               errors='coerce')
+
+    # Calculate RankDecrease
+    filtered_data['RankDecrease'] = filtered_data['IndustryGroupRankCurrent'] - filtered_data[
         'IndustryGroupRankLastWeek']
 
-# Sort the DataFrame by the "Date" column in descending order
-if filtered_data is not None:
+    # Sort the DataFrame by the "Date" column in descending order
     filtered_data = filtered_data.sort_values(by="Date", ascending=False)
 
-# Step 5: Display the combined data
-st.write("Combined Data:")
-
-if filtered_data is not None:
-    # Display filtered DataFrame
+    # Display the combined data including RankDecrease column
     grid = AgGrid(
         data=filtered_data,
         columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW
