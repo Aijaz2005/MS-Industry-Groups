@@ -148,13 +148,13 @@ grid_options = {
             "sortable": True  # Enable sorting for this column
         },
         {
-            "headerName": "Current Rank",  # Change the column header here
-            "field": "IndustryGroupRankCurrent",
+            "headerName": "Rank Difference",
+            "field": "RankDifference",
             "sortable": True  # Enable sorting for this column
         },
         {
-            "headerName": "Rank Difference",
-            "field": "RankDifference",
+            "headerName": "Current Rank",  # Change the column header here
+            "field": "IndustryGroupRankCurrent",
             "sortable": True  # Enable sorting for this column
         },
         {
