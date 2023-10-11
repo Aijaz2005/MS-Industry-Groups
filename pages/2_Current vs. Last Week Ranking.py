@@ -152,7 +152,7 @@ grid_options = {
         {
             "headerName": "Rank Difference",
             "field": "RankDifference",
-            "sortable": True  # Enable sorting for this column
+            "sortable": True,  # Enable sorting for this column
             "filter": "agTextColumnFilter"
         },
         {
