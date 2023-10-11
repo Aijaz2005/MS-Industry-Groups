@@ -47,7 +47,7 @@ if uploaded_file is not None:
     filtered_df = filtered_df[(filtered_df['IndustryGroupRankCurrent'] < filtered_df['IndustryGroupRankLastWeek'])]
 
     # Calculate the difference between current rank and last week rank
-    filtered_df['RankDifference'] = filtered_df['IndustryGroupRankLastWeek'] - filtered_df['IndustryGroupRankCurrent']
+    filtered_df['RankDifference'] = filtered_df['IndustryGroupRankCurrent'] - filtered_df['IndustryGroupRankLastWeek']
 
     # Create a grouped bar chart using Bokeh
     st.subheader("Display Industry Groups which Current Rank is less than Last Week Rank.")
