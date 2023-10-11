@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
+from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode,AgGridTheme
 from bokeh.plotting import figure, show
 from bokeh.models import ColumnDataSource, ColorBar, HoverTool, Spacer, Legend
 from bokeh.transform import dodge
@@ -11,10 +11,7 @@ from bokeh.models import Legend
 st.set_page_config(layout="wide")
 
 # Title
-st.title("Current vs Last Week Ranking")
-
-# Create a grouped bar chart using Bokeh
-st.subheader("Only ONE csv file can be uploaded at a time.")
+st.title("Industry Group Dashboard")
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
@@ -50,7 +47,7 @@ if uploaded_file is not None:
     filtered_df['RankDifference'] = filtered_df['IndustryGroupRankCurrent'] - filtered_df['IndustryGroupRankLastWeek']
 
     # Create a grouped bar chart using Bokeh
-    st.subheader("Display Industry Groups which Current Rank is less than Last Week Rank.")
+    st.subheader("Comparison between Current Rank & Last Week Rank.")
 
     # Add a checkbox to turn on/off text labels
     show_labels = st.checkbox("Show Text Labels", value=True)
@@ -125,8 +122,62 @@ if uploaded_file is not None:
     # Show the chart
     st.bokeh_chart(p, use_container_width=True)
 
-    # Display filtered DataFrame
-    grid = AgGrid(
-        data=filtered_df,
-        columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW
-    )
+# Display filtered DataFrame with the desired column header
+grid_options = {
+    "domLayout": "autoHeight",
+    "animateRows": False,
+    "enableColResize": False,
+    "enableFilter": True,
+    "suppressCellSelection": True,
+    "suppressAutoSize": False,
+    "suppressMultiSort": False,
+    "suppressMovableColumns": False,
+    "suppressMakeColumnVisibleAfterUnGroup": False,
+    "enableRangeSelection": True,
+    "pivotTotals": False,
+    "theme": "ag-theme-material",
+    "columnDefs": [
+        {
+            "headerName": "Industry Group",
+            "field": "IndustryGroupName",
+            "sortable": True  # Enable sorting for this column
+        },
+        {
+            "headerName": "Number of Stocks",
+            "field": "NumberOfStocks",
+            "sortable": True  # Enable sorting for this column
+        },
+        {
+            "headerName": "Current Rank",  # Change the column header here
+            "field": "IndustryGroupRankCurrent",
+            "sortable": True  # Enable sorting for this column
+        },
+        {
+            "headerName": "Rank Difference",
+            "field": "RankDifference",
+            "sortable": True  # Enable sorting for this column
+        },
+        {
+            "headerName": "Last Week Rank",
+            "field": "IndustryGroupRankLastWeek",
+            "sortable": True  # Enable sorting for this column
+        },
+        {
+            "headerName": "Last 3month Rank",
+            "field": "IndustryGroupRankLast3MonthAgo",
+            "sortable": True  # Enable sorting for this column
+        },
+        {
+            "headerName": "Market Capital",
+            "field": "MarketCapital",
+            "sortable": True  # Enable sorting for this column
+        }
+    ]
+}
+
+grid = AgGrid(
+    data=filtered_df,
+    gridOptions=grid_options,  # Apply sorting to columns
+    columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS
+)
+
