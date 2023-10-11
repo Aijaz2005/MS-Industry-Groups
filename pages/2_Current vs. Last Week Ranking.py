@@ -174,10 +174,12 @@ grid_options = {
         }
     ]
 }
-
-grid = AgGrid(
-    data=filtered_df,
-    gridOptions=grid_options,  # Apply sorting to columns
-    columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS
-)
+if 'filtered_df' in locals():
+    st.subheader("Filtered Data")
+    AgGrid(data=filtered_df, gridOptions=grid_options,columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
+#grid = AgGrid(
+#    data=filtered_df,
+#    gridOptions=grid_options,  # Apply sorting to columns
+#    columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS
+#)
 
