@@ -140,17 +140,20 @@ grid_options = {
         {
             "headerName": "Industry Group",
             "field": "IndustryGroupName",
-            "sortable": True  # Enable sorting for this column
+            "sortable": True,  # Enable sorting for this column
+            "filter": "agTextColumnFilter"
         },
         {
             "headerName": "Number of Stocks",
             "field": "NumberOfStocks",
-            "sortable": True  # Enable sorting for this column
+            "sortable": True,  # Enable sorting for this column
+            "filter": "agTextColumnFilter"
         },
         {
             "headerName": "Rank Difference",
             "field": "RankDifference",
             "sortable": True  # Enable sorting for this column
+            "filter": "agTextColumnFilter"
         },
         {
             "headerName": "Current Rank",  # Change the column header here
