@@ -11,7 +11,7 @@ from bokeh.models import Legend
 st.set_page_config(layout="wide")
 
 # Title
-st.title("Industry Group Dashboard")
+#st.title("Industry Group Dashboard")
 
 # Create a grouped bar chart using Bokeh
 st.subheader("Only ONE csv file can be uploaded at a time.")
