@@ -97,13 +97,38 @@ if filtered_data is not None:
     filtered_data['RankDecrease'] = filtered_data['IndustryGroupRankCurrent'] - filtered_data[
         'IndustryGroupRankLastWeek']
 
+# Reorder columns as desired
+    column_order = [
+        'IndustryGroupName',
+        'NumberOfStocks',
+        'RankDecrease',
+        'IndustryGroupRankCurrent',
+        'IndustryGroupRankLastWeek',
+        'IndustryGroupRankLast3MonthAgo',
+        'MarketCapital',
+        'Date'
+    ]
+
+    filtered_data = filtered_data[column_order]
+
+    # Rename the columns
+    filtered_data = filtered_data.rename(columns={
+        'IndustryGroupRankCurrent': 'CurrentRank',
+        'IndustryGroupRankLastWeek': 'LastWeekRank',
+        'IndustryGroupRankLast3MonthAgo': '3MonthAgo'
+    })
+    
     # Sort the DataFrame by the "Date" column in descending order
     filtered_data = filtered_data.sort_values(by="Date", ascending=False)
 
     # Display the combined data including RankDecrease column
-    grid = AgGrid(
-        data=filtered_data,
-        columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW
-    )
+    #grid = AgGrid(
+    #    data=filtered_data,
+    #    columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW
+    #)
+
+# Display the combined data including RankDecrease column with paging
+    st.dataframe(filtered_data, height=600)
+
 else:
     st.write("No CSV files uploaded.")
